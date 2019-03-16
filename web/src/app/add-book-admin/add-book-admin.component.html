@@ -1,0 +1,65 @@
+<div style="height:780px;background-color: white">
+
+  <div class="background-two">
+
+
+      <mat-card class="post-add" >
+
+        <mat-card-title style="text-align: center">Add item</mat-card-title>
+
+          <form class="example-form">
+
+
+              <table class="example-full-width" cellspacing="0"><tr>
+                <td><mat-form-field class="example-full-width">
+                    <mat-select placeholder="Category">
+                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                          {{food.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field></td>
+
+              </tr></table>
+
+              <p>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Book name">
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Author">
+                </mat-form-field>
+              </p>
+
+              <p>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="ISBN number">
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="year">
+                  </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="publisher">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Price">
+                    </mat-form-field>
+                  </p>
+
+                  <input type="file" name="file" id="file" (change)="onFileChanged($event)" />
+
+
+
+
+
+          </form>
+          <button style="float: left;margin-left:10%;margin-top: 2%;background-color: #FF4D00;color: white;" mat-raised-button >Add item</button>
+
+        </mat-card>
+
+
+
+
+    </div>
+    </div>

@@ -1,0 +1,65 @@
+
+
+<ng-container >
+
+    <mat-toolbar style="    box-shadow: inset 1px -5px 0px 0px rgb(165, 165, 165);" class="example-header">
+        <span style="margin-left:4%">eLibrary</span>
+
+        <span style=" color: rgb(109, 109, 109);text-align: right;flex: 1 1 auto;">
+
+
+
+
+          <a  mat-button style="cursor: pointer;font-size:70%" routerLink="/login">Login</a>&nbsp;&nbsp;&nbsp;
+
+
+
+          </span>
+
+
+
+    </mat-toolbar>
+
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav">
+   <div class="margin-top: 11%;">
+       <span style="margin-left:10%;text-decoration: underline;margin-top: 5%;font-size: 15px;">Collections</span>
+
+     <div class="margin-top:7%">
+      <button mat-button class="menu-btn" routerLink="/app-recent-added"><mat-icon>library_books</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;Recently Added</button>
+      <button mat-button class="menu-btn"  routerLink="/app-books"><mat-icon>book</mat-icon> &nbsp;&nbsp;&nbsp;&nbsp;Books</button>
+      <button mat-button class="menu-btn" routerLink="/app-newspapers"><mat-icon>library_books</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;Newspapers</button>
+      <button mat-button class="menu-btn" routerLink="/app-government"><mat-icon>record_voice_over</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;Government Publications</button>
+      <button mat-button class="menu-btn" routerLink="/app-ola"><mat-icon>spa</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;Ola leaf munuscripts</button>
+    </div>
+  </div>
+
+  <div class="margin-top: 11%;">
+
+
+    <div class="margin-top:7%">
+
+        <span class="menu-btn" style="margin-left:1%;text-decoration: underline;margin-top: 5%;font-size: 15px;">Actions</span>
+        <button class="nav-button"  mat-raised-button color="primary" routerLink="/app-add-book-admin">Add items</button>
+        <button  class="nav-button-new" mat-stroked-button color="primary" routerLink="/app-member-request">Member requests</button>
+
+
+
+   </div>
+ </div>
+
+
+
+
+
+
+    </mat-sidenav>
+
+    <mat-sidenav-content [formGroup]="options">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+</ng-container>

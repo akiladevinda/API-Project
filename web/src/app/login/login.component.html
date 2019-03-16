@@ -1,0 +1,97 @@
+<div class="background">
+
+  <div class="background-two" >
+
+
+      <mat-card class="login" >
+
+        <mat-card-title style="text-align: center">Login</mat-card-title>
+        <hr>
+
+          <form class="example-form">
+
+
+
+
+              <p>
+                <mat-form-field class="example-full-width">
+                  <input matInput type="text" placeholder="Username or email address"  required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                  <input matInput type="text" placeholder="Password" required [type]="hide ? 'password' : 'text'" >
+                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+                </mat-form-field>
+              </p>
+
+
+
+
+
+
+            </form>
+
+             <mat-label style="color: red" *ngIf="loginError">There was a problem logging in. Please try again.</mat-label>
+
+            <button style="float: left;margin-left:15%;background-color: #FF4D00;color: white;" mat-raised-button  (click)="login()"   >Log in</button>
+
+
+        </mat-card>
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <mat-card  class="register" >
+
+            <mat-card-title style="text-align: center">Register</mat-card-title>
+            <hr>
+
+              <form  class="example-form">
+
+
+
+
+                  <p>
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Email address " required
+                      >
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Password " required
+                     >
+                    </mat-form-field>
+                  </p>
+
+                  <p>
+
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Full name"  required
+                       >
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Mobile Number "
+                        required
+                       >
+                      </mat-form-field>
+                    </p>
+
+
+
+
+                    <button style="float: left;margin-left:15%;color:rgb(255, 255, 255);background-color: #FF4D00" mat-raised-button >Register</button>
+
+
+                </form>
+
+
+
+
+            </mat-card>
+
+
+
+
+    </div>
+    </div>
+
+

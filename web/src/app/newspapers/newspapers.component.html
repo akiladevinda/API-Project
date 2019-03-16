@@ -1,0 +1,18 @@
+<div style="height:780px;background-color: #FAFAFA;">
+
+
+    <h4 style="margin-left:4%;" class="heading">Newspapers</h4>
+    <mat-card class="new-product-card" *ngFor="let element of array">
+
+      <img class="new-product-card-image" mat-card-image src="{{element.image}}" alt="">
+      <mat-card-content class="new-product-card-content">
+        <p>
+          {{element.name}}
+        </p>
+      </mat-card-content>
+
+
+
+    </mat-card>
+
+    </div>
