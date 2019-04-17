@@ -32,6 +32,10 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import {ProgressDialog} from "react-native-simple-dialogs";
 import * as Animatable from 'react-native-animatable';
 
+
+//Create API LINKS
+var MAIN_API = _CONFIG_.USER_LOGIN_URL;
+
 export default class Login extends Component {
 
   constructor(props) {
@@ -69,7 +73,7 @@ export default class Login extends Component {
     };
   
   
-    fetch(_CONFIG_.USER_LOGIN_URL,object)
+    fetch(MAIN_API,object)
       .then((response) => response.json())
       .then((responseText) => {
         //Login success
@@ -105,9 +109,8 @@ export default class Login extends Component {
   
       })
       .catch((error) => {
-        this.setState({
-         
-        });
+        MAIN_API = _CONFIG_.USER_LOGIN_URL_BACKUP;
+        this.loginAuthenticationFunction();
       });
   }
 

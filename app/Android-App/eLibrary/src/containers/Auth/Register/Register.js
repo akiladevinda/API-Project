@@ -29,7 +29,8 @@ import AwesomeAlert from 'react-native-awesome-alerts';
 import {ProgressDialog} from "react-native-simple-dialogs";
 import * as Animatable from 'react-native-animatable';
 
-
+//Create API LINKS
+var MAIN_API = _CONFIG_.USER_REGISTER_URL;
 
 //Nationality Data
 const userNationalityData = [
@@ -138,7 +139,7 @@ onChangeTextForNationality(text) {
     };
   
   
-    fetch(_CONFIG_.USER_REGISTER_URL,object)
+    fetch(MAIN_API,object)
       .then((response) => response.json())
       .then((responseText) => {
         debugger;
@@ -157,9 +158,8 @@ onChangeTextForNationality(text) {
   
       })
       .catch((error) => {
-        this.setState({
-         
-        });
+        MAIN_API = _CONFIG_.USER_REGISTER_URL_BACKUP;
+        this.function_RegisterUser();
       });
   }
 

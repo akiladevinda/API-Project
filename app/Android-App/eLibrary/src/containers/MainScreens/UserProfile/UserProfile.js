@@ -17,6 +17,11 @@ import _CONFIG_ from '../../Global/_CONFIG_'
 
 import { ConfirmDialog , ProgressDialog} from 'react-native-simple-dialogs';
 
+
+//Create API LINKS
+var MAIN_API = _CONFIG_.GET_USERDETAILS_URL;
+
+
 //Get Email From Async Storage
 const retrieve = async (key)
  => {
@@ -72,7 +77,7 @@ export default class UserProfile extends Component{
 
       this.setState({progress:true});
 
-      fetch(_CONFIG_.GET_USERDETAILS_URL, {
+      fetch(MAIN_API, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -103,9 +108,8 @@ export default class UserProfile extends Component{
             
         })
         .catch((error) => {
-          this.setState({
-            
-          });
+          MAIN_API = _CONFIG_.GET_USERDETAILS_URL_BACKUP;
+          this.function_GetUserDetails();
             
         });
 

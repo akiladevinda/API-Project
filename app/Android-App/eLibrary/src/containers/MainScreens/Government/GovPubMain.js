@@ -17,6 +17,9 @@ import _CONFIG_ from '../../Global/_CONFIG_'
 import Metrics from '../../../containers/Dimensions/Metrics';
 
 
+//Create API LINKS
+var MAIN_API = _CONFIG_.GET_GOVPUB_DETAILS;
+
 export default class GovPubMain extends Component{
 
     constructor(props) {
@@ -64,7 +67,7 @@ export default class GovPubMain extends Component{
 
     this.setState({progress:true});
 
-    fetch(_CONFIG_.GET_GOVPUB_DETAILS, {
+    fetch(MAIN_API, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -91,7 +94,8 @@ export default class GovPubMain extends Component{
           
       })
       .catch((error) => {
-          
+        MAIN_API = _CONFIG_.GET_GOVPUB_DETAILS_BACKUP;
+        this.function_GetBooksDetails(user_email);
       });
 
   }

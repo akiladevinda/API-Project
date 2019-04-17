@@ -16,6 +16,9 @@ import _CONFIG_ from '../../Global/_CONFIG_'
 
 import Metrics from '../../../containers/Dimensions/Metrics';
 
+//Create API LINKS
+var MAIN_API = _CONFIG_.GET_OLASCRIPT_DETAILS_URL;
+
 
 export default class OlaScripts extends Component{
 
@@ -64,7 +67,7 @@ export default class OlaScripts extends Component{
 
     this.setState({progress:true});
 
-    fetch(_CONFIG_.GET_OLASCRIPT_DETAILS_URL, {
+    fetch(MAIN_API, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -91,7 +94,8 @@ export default class OlaScripts extends Component{
           
       })
       .catch((error) => {
-          
+        MAIN_API = _CONFIG_.GET_OLASCRIPT_DETAILS_URL_BACKUP;
+        this.function_GetBooksDetails(user_email);
       });
 
   }
