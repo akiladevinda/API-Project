@@ -6,11 +6,13 @@
  */
 
 import React, {Component} from 'react';
-import { Animated, Easing,Image,StyleSheet,View,ImageBackground,AsyncStorage,ScrollView,Text,FlatList,TouchableOpacity,Alert,BackHandler} from 'react-native';
+import { Animated, TouchableHighlight,Image,StyleSheet,View,ImageBackground,AsyncStorage,ScrollView,Text,FlatList,TouchableOpacity,Alert,BackHandler,ListView,TextInput} from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import * as Animatable from 'react-native-animatable';
+import { Dialog , ProgressDialog , ConfirmDialog} from "react-native-simple-dialogs";
 
-
+//GET API FILE
+import _CONFIG_ from '../../Global/_CONFIG_'
 
 import Metrics from '../../../containers/Dimensions/Metrics';
 
@@ -18,11 +20,30 @@ import Metrics from '../../../containers/Dimensions/Metrics';
 export default class Newspapers extends Component{
 
     constructor(props) {
-    super(props);
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+      super(props);
+      this.state = {
+        jsonData: [],
+        progress:false,
+      };
+      this.dataSource = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      });
+      this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    }
+
+     //Get User Logged Email From Local Storage
+    getUserEmail = async () => {
+      let user_email = await AsyncStorage.getItem('user_email');
+      return user_email;
     }
 
     componentDidMount(){
+      //Getting user logged email
+      this.getUserEmail().then((user_email) => {
+        console.log(user_email);
+        this.function_GetBooksDetails(user_email);
+      })
+
      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
    }
    
@@ -36,22 +57,99 @@ export default class Newspapers extends Component{
         return true;
     }
 
+  //Get Books Details API Call Function
+  function_GetBooksDetails(user_email){
+
+    let User_Email = JSON.parse(user_email);
+
+    this.setState({progress:true});
+
+    fetch(_CONFIG_.GET_NEWSPAPER_DETAILS_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify( {
+        "User_Email": User_Email,
+      })
+
+  })
+      .then((response) => response.json())
+      .then((responseText) => {
+          if(responseText.status_code == '400'){
+            this.setState({
+                  progress:false,
+                });
+          }else if(responseText.data[0].status_code == '200'){
+            this.setState({
+              jsonData:responseText.data,
+              progress:false,
+            });
+   
+          }
+          
+      })
+      .catch((error) => {
+          
+      });
+
+  }
+
 
   render() {
     return (
       <View style={styles.container}>
+ 
         <ImageBackground source={require('../../../assets/home/bg.png')}  
                 style={styles.container}>
-
+    <View>
         <TouchableOpacity style={styles.drawerIcon} onPress= {this.handleBackButtonClick}>
             <Image style={styles.imagestyle}
                 source={require('../../../assets/drawer/back.png')} />
             </TouchableOpacity>
         
-            <Text style={styles.headerTextMain}>Newspapers
-            </Text>
+            <Text style={styles.headerTextMain}>Newspapers</Text>
+     
+          <View style={styles.formContent}>
+          <View style={styles.inputContainer}>
+            <Image style={[styles.icon, styles.inputIcon]} source={require('../../../assets/books/search-orange.png')}/>
+            <TextInput style={styles.inputs}
+                ref={'txtPassword'}
+                placeholder="Search Newspapers"
+                underlineColorAndroid='transparent'
+                onChangeText={(name_address) => this.setState({name_address})}/>
+          </View>
+
+          <TouchableHighlight style={styles.saveButton} onPress={() => this.clickEventListener('search')}>
+            <Image style={[styles.icon, styles.iconBtnSearch]} source={require('../../../assets/books/search-white.png')}/>
+          </TouchableHighlight>
+        </View>
+      </View>
+
+        {this.state.jsonData &&
+        <ListView enableEmptySections={true}
+         dataSource={this.dataSource.cloneWithRows(this.state.jsonData)}
+        renderRow={(service) => {
+          return (
+            <View style={styles.box}>
+              <Image style={styles.image} source={{uri: service.Newspaper_Image}} />
+              <View style={styles.boxContent}>
+                <Text style={styles.title}>{service.Newspaper_Name}</Text>
+                <Text style={styles.description}>{service.Newspaper_Date}</Text>
+              </View>
+            </View>
+          )
+        }}/> }
+
    
         </ImageBackground>
+
+        <ProgressDialog
+              visible={this.state.progress}
+              title="Loading Data"
+              message="Please, wait..."
+          />
 
       </View>
       
@@ -86,6 +184,119 @@ const styles = StyleSheet.create({
       // width:Metrics.DEVICE_WIDTH,
       height:60,
       marginTop:20,
+    },
+    image: {
+      width: 90,
+      height:90,
+    },
+    box: {
+      padding:20,
+      marginTop:5,
+      marginBottom:5,
+      backgroundColor: 'white',
+      flexDirection: 'row',
+    },
+    boxContent: {
+      flex:1,
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      marginLeft:5,
+    },
+    title:{
+      fontSize:18,
+      color:"#151515",
+    },
+    description:{
+      fontSize:15,
+      color: "#646464",
+    },
+    buttons:{
+      flexDirection: 'row',
+    },
+    button: {
+      height:35,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius:10,
+      width:50,
+      marginRight:5,
+      marginTop:5,
+    },
+    icon:{
+      width:20,
+      height:20,
+    },
+    view: {
+      backgroundColor: "#FF1493",
+    },
+    profile: {
+      backgroundColor: "#1E90FF",
+    },
+    message: {
+      backgroundColor: "#228B22",
+    },
+    formContent:{
+      flexDirection: 'row',
+      marginTop:30,
+    },
+    inputContainer: {
+        borderBottomColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
+        borderRadius:30,
+        borderBottomWidth: 1,
+        height:45,
+        flexDirection: 'row',
+        alignItems:'center',
+        flex:1,
+        margin:10,
+    },
+    icon:{
+      width:30,
+      height:30,
+    },
+    iconBtnSearch:{
+      alignSelf:'center'
+    },
+    inputs:{
+        height:60,
+        marginLeft:16,
+        borderBottomColor: '#FFFFFF',
+        flex:1,
+    },
+    inputIcon:{
+      marginLeft:15,
+      justifyContent: 'center'
+    },
+    saveButton: {
+      height:45,
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin:10,
+      width:70,
+      alignSelf: 'flex-end',
+      backgroundColor: '#40E0D0',
+      borderRadius:30,
+    },
+    saveButtonText: {
+      color: 'white',
+    },
+    notificationList:{
+      marginTop:20,
+      padding:10,
+    },
+    notificationBox: {
+      padding:20,
+      marginTop:5,
+      marginBottom:5,
+      backgroundColor: '#FFFFFF',
+      flexDirection: 'row',
+      borderRadius:10,
+    },
+    description:{
+      fontSize:18,
+      color: "#3498db",
+      marginLeft:10,
     },
   
   

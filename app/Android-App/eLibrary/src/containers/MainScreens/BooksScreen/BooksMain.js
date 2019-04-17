@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
       flex:1,
       flexDirection: 'column',
       alignItems: 'flex-start',
-      marginLeft:10,
+      marginLeft:5,
     },
     title:{
       fontSize:18,

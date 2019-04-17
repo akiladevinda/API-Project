@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import { Animated, Easing,Dimensions,StyleSheet,View,Image,AsyncStorage,ScrollView,Text} from 'react-native';
 import { StackNavigator,DrawerNavigator, DrawerActions , DrawerItems,NavigationActions ,createStackNavigator ,createDrawerNavigator, createAppContainer} from 'react-navigation';
-
+import { fromRight } from 'react-navigation-transitions';
 
 //import Main Screens
 import Splash from '../containers/SplashScreen/Splash'
@@ -179,6 +179,8 @@ const NavigationApp = createStackNavigator({
     UserProfile:{ screen: UserProfile,navigationOptions: { title: 'UserProfile', header: null, gesturesEnabled: false},},
    
   
+  }, {
+    transitionConfig: () => fromRight(),
   });
   
   export default class App extends Component{
