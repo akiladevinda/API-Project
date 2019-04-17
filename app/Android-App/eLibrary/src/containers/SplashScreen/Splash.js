@@ -31,35 +31,34 @@ export default class Splash extends Component{
 
 
 componentWillMount(){
-  //Check user already signed in or not
-//   AsyncStorage.getItem("alreadyLaunched").then(value => {
+    //Check user already signed in or not
+    AsyncStorage.getItem("alreadyLaunched").then(value => {
 
-//     var launchedBefore = JSON.parse(value);
-//     if(launchedBefore == null){
-//       setTimeout(() => {
-//         this.props.navigation.navigate("Login",{screen: "Login"});
-//      }, 1000);
-
-//     }
-//     else if(launchedBefore == true){
-//       setTimeout(() => {
-//         this.props.navigation.navigate("Drawer",{screen: "Drawer"});
-//      }, 1000);
-
-//     }
-
-//     else if(launchedBefore == false){
-//       setTimeout(() => {
-//         this.props.navigation.navigate("Login",{screen: "Login"});
-//      }, 1000);
-
-//     }
-
-//   })
-
+      var launchedBefore = JSON.parse(value);
+      if(launchedBefore == null){
         setTimeout(() => {
-            this.props.navigation.navigate("Drawer",{screen: "Drawer"});
-         }, 2000);
+          this.props.navigation.navigate("Login",{screen: "Login"});
+      }, 1000);
+
+      }
+      else if(launchedBefore == true){
+        setTimeout(() => {
+          this.props.navigation.navigate("Drawer",{screen: "Drawer"});
+      }, 1000);
+
+      }
+
+      else if(launchedBefore == false){
+        setTimeout(() => {
+          this.props.navigation.navigate("Login",{screen: "Login"});
+      }, 1000);
+
+      }
+
+    })
+        // setTimeout(() => {
+        //     this.props.navigation.navigate("Drawer",{screen: "Drawer"});
+        //  }, 2000);
 
 
 }

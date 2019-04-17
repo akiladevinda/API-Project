@@ -13,9 +13,19 @@ import { StackNavigator,DrawerNavigator, DrawerActions , DrawerItems,NavigationA
 //import Main Screens
 import Splash from '../containers/SplashScreen/Splash'
 import Home from '../containers/HomeScreen/Home'
+import BooksMain from '../containers/MainScreens/BooksScreen/BooksMain'
+import GovPubMain from '../containers/MainScreens/Government/GovPubMain'
+import Newspapers from '../containers/MainScreens/Newspapers/Newspapers'
+import OlaScripts from '../containers/MainScreens/OlaScripts/OlaScripts'
+import UserProfile from '../containers/MainScreens/UserProfile/UserProfile'
+
+//Authentication Pages
+import Login from '../containers/Auth/Login/Login'
+import Register from '../containers/Auth/Register/Register'
+
 
 import Metrics from '../containers/Dimensions/Metrics'
-
+console.disableYellowBox = true;
 // Drawer Header Image
 const CustomeDrawerImage = (props) => (
 
@@ -28,17 +38,17 @@ const CustomeDrawerImage = (props) => (
       <ScrollView style={{width:Metrics.DEVICE_WIDTH/1.3,height:Metrics.DEVICE_HEIGHT/1.3}}>
       <DrawerItems
               {...props}
-            //   onItemPress = {({ route, focused }) => {
-            //       if(route.routeName == 'Log out'){
-            //         props.navigation.navigate('Drawer');
-            //          props.navigation.navigate('Login');
-            //          AsyncStorage.setItem('alreadyLaunched', JSON.stringify(false))
+              onItemPress = {({ route, focused }) => {
+                  if(route.routeName == 'Logout'){
+                    props.navigation.navigate('Drawer');
+                     props.navigation.navigate('Login');
+                     AsyncStorage.setItem('alreadyLaunched', JSON.stringify(false))
 
-            //       }else{
-            //         props.navigation.navigate(route.routeName);
-            //       }
-            //     }
-            //     }
+                  }else{
+                    props.navigation.navigate(route.routeName);
+                  }
+                }
+                }
             />
 
             </ScrollView>
@@ -65,7 +75,7 @@ const Drawer = createDrawerNavigator({
       }
   },
   'Books':{
-    screen: Home,
+    screen: BooksMain,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => (
         <Image
@@ -77,7 +87,7 @@ const Drawer = createDrawerNavigator({
     }
 },
 'News Papers':{
-    screen: Home,
+    screen: Newspapers,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => (
         <Image
@@ -89,7 +99,7 @@ const Drawer = createDrawerNavigator({
     }
 },
 'Government Publications':{
-    screen: Home,
+    screen: GovPubMain,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => (
         <Image
@@ -101,7 +111,7 @@ const Drawer = createDrawerNavigator({
     }
 },
 'Ola Leaf':{
-    screen: Home,
+    screen: OlaScripts,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => (
         <Image
@@ -113,7 +123,7 @@ const Drawer = createDrawerNavigator({
     }
 },
 'My Profile':{
-    screen: Home,
+    screen: UserProfile,
     navigationOptions: {
       drawerIcon: ({ tintColor }) => (
         <Image
@@ -155,10 +165,18 @@ drawerBackgroundColor: "white",
 
 // Main App Navigation
 const NavigationApp = createStackNavigator({ 
+ 
 
     Splash:{ screen: Splash,navigationOptions: { title: 'Splash', header: null, gesturesEnabled: false},},
+    Login:{ screen: Login,navigationOptions: { title: 'Login', header: null, gesturesEnabled: false},},
+    Register:{ screen: Register,navigationOptions: { title: 'Register', header: null, gesturesEnabled: false},},
     Home:{ screen: Home,navigationOptions: { title: 'Home', header: null, gesturesEnabled: false},},
     Drawer:{ screen: Drawer,navigationOptions: { title: 'Drawer', header: null, gesturesEnabled: false},},
+    BooksMain:{ screen: BooksMain,navigationOptions: { title: 'BooksMain', header: null, gesturesEnabled: false},},
+    GovPubMain:{ screen: GovPubMain,navigationOptions: { title: 'GovPubMain', header: null, gesturesEnabled: false},},
+    Newspapers:{ screen: Newspapers,navigationOptions: { title: 'Newspapers', header: null, gesturesEnabled: false},},
+    OlaScripts:{ screen: OlaScripts,navigationOptions: { title: 'OlaScripts', header: null, gesturesEnabled: false},},
+    UserProfile:{ screen: UserProfile,navigationOptions: { title: 'UserProfile', header: null, gesturesEnabled: false},},
    
   
   });
