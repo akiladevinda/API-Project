@@ -26,6 +26,7 @@ export default class BooksMain extends Component{
       this.state = {
         jsonData: [],
         progress:false,
+        search:'',
       };
       this.dataSource = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -99,6 +100,57 @@ export default class BooksMain extends Component{
 
   }
 
+  //Search Books API Call
+  function_SearchBook(){
+
+    this.setState({progress:true});
+
+    fetch(_CONFIG_.SEARCH_BOOK_DETAILS_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify( {
+        "Book_Name": this.state.search,
+      })
+
+  })
+      .then((response) => response.json())
+      .then((responseText) => {
+          if(responseText.status_code == '400'){
+            this.setState({
+                  progress:false,
+                });
+          }else if(responseText.data[0].status_code == '200'){
+            this.setState({
+              jsonData:responseText.data,
+              progress:false,
+            });
+   
+          }
+          
+      })
+      .catch((error) => {
+        // MAIN_API = _CONFIG_.GET_BOOK_DETAILS_URL_BACKUP;
+        // this.function_GetBooksDetails(user_email);
+      });
+  }
+
+  clickEventListener(value){
+    if(value == 'search'){
+      // alert(this.state.search)
+      if(this.state.search.length == 0){
+        this.getUserEmail().then((user_email) => {
+          this.function_GetBooksDetails(user_email);
+        })
+      }else{
+        this.function_SearchBook();
+      }
+      
+    }
+  }
+
 
   render() {
     return (
@@ -118,10 +170,10 @@ export default class BooksMain extends Component{
           <View style={styles.inputContainer}>
             <Image style={[styles.icon, styles.inputIcon]} source={require('../../../assets/books/search-orange.png')}/>
             <TextInput style={styles.inputs}
-                ref={'txtPassword'}
+                ref={'search'}
                 placeholder="Search Books"
                 underlineColorAndroid='transparent'
-                onChangeText={(name_address) => this.setState({name_address})}/>
+                onChangeText={(search) => this.setState({search})}/>
           </View>
 
           <TouchableHighlight style={styles.saveButton} onPress={() => this.clickEventListener('search')}>

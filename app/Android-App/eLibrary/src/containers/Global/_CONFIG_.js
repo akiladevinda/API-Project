@@ -33,6 +33,9 @@ const GET_GOVPUB_DETAILS = 'https://elibrarymain.000webhostapp.com/eLibrary/api/
 //Get Ola Script Details
 const GET_OLASCRIPT_DETAILS_URL = 'https://elibrarymain.000webhostapp.com/eLibrary/api/get-olascripts-details.php';
 
+// Search Book
+const SEARCH_BOOK_DETAILS_URL = 'http://elibrarymain.000webhostapp.com/eLibrary/api/search-book.php';
+
 
  /**
  * Backup API LINKS -----------------------------------------------------
@@ -59,6 +62,9 @@ const GET_GOVPUB_DETAILS_BACKUP = 'https://elibrarybackup.000webhostapp.com/eLib
 //Get Ola Script Details
 const GET_OLASCRIPT_DETAILS_URL_BACKUP = 'https://elibrarybackup.000webhostapp.com/eLibrary/api/get-olascripts-details.php';
 
+// Search Book
+const SEARCH_BOOK_DETAILS_URL_BACKUP = 'http://elibrarybackup.000webhostapp.com/eLibrary/api/search-book.php';
+
 
 //export all links
 export default {
@@ -70,6 +76,7 @@ export default {
     GET_NEWSPAPER_DETAILS_URL:GET_NEWSPAPER_DETAILS_URL,
     GET_GOVPUB_DETAILS:GET_GOVPUB_DETAILS,
     GET_OLASCRIPT_DETAILS_URL:GET_OLASCRIPT_DETAILS_URL,
+    SEARCH_BOOK_DETAILS_URL:SEARCH_BOOK_DETAILS_URL,
 
     USER_REGISTER_URL_BACKUP:USER_REGISTER_URL_BACKUP,
     USER_LOGIN_URL_BACKUP:USER_LOGIN_URL_BACKUP,
@@ -78,6 +85,9 @@ export default {
     GET_NEWSPAPER_DETAILS_URL_BACKUP:GET_NEWSPAPER_DETAILS_URL_BACKUP,
     GET_GOVPUB_DETAILS_BACKUP:GET_GOVPUB_DETAILS_BACKUP,
     GET_OLASCRIPT_DETAILS_URL_BACKUP:GET_OLASCRIPT_DETAILS_URL_BACKUP,
+    SEARCH_BOOK_DETAILS_URL_BACKUP:SEARCH_BOOK_DETAILS_URL_BACKUP,
+
+
     
 
 
